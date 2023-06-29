@@ -1,0 +1,3 @@
+[submodule "src/ezTime"]
+	path = src/ezTime
+	url = https://github.com/ropg/ezTime
