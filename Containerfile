@@ -11,7 +11,8 @@ RUN adduser -D -s /bin/sh -u 1000 timezoned
 USER timezoned
 WORKDIR /home/timezoned
 
-COPY --chown=1000:1000 --chmod=774 src/ezTime/server/ .
+COPY --chown=1000:1000 --chmod=774 src/update .
+COPY --chown=1000:1000 --chmod=774 src/server .
 COPY --chown=1000:1000 --chmod=774 src/update.sh .
 COPY --chown=1000:1000 --chmod=444 src/crontab .
 
