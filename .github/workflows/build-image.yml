@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: eztime-server
-      REGISTRY: ghcr.io/TheGroundZero
+      REGISTRY: ghcr.io/thegroundzero
     steps:
     - name: Clone the repository
       uses: actions/checkout@v3
