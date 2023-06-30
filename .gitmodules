@@ -1,0 +1,3 @@
+[submodule "src/ezTime"]
+	path = src/ezTime
+	url = git@github.com:TheGroundZero/ezTime.git
