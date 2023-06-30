@@ -1,0 +1,10 @@
+services:
+  eztime:
+    build: .
+    command: supercronic crontab
+    container_name: eztime-server
+    deploy:
+      restart_policy:
+        condition: any
+    expose:
+      - 2342/udp

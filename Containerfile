@@ -2,44 +2,22 @@ FROM alpine:3.18
 
 MAINTAINER TheGroundZero
 
-RUN apk add --no-cache wget
-RUN apk add --no-cache tar
-RUN apk add --no-cache sed
-RUN apk add --no-cache php82
+RUN apk add --no-cache wget tar sed php82 php82-sockets tzdata-utils supercronic
 
-RUN adduser -D -s /bin/sh timezoned
+RUN ln -s /usr/bin/php82 /usr/local/bin/php
 
-ADD --chown timezoned --chmod=774 src/server/ /home/timezoned/
-
-RUN sed -i 's|/usr/local/bin/php|/usr/bin/php82|g' /home/timezoned/server
-RUN sed -i 's|/usr/local/bin/php|/usr/bin/php82|g' /home/timezoned/timezoned
-
-RUN ln -s /home/timezoned/timezoned /etc/local.d/timezoned
-RUN chmod +x /etc/local.d/timezoned
-RUN rc-update add local
+RUN adduser -D -s /bin/sh -u 1000 timezoned
 
 USER timezoned
 WORKDIR /home/timezoned
 
-RUN <<EOT
-	update
-	sleep 5
-	server
-EOT
+COPY --chown=1000:1000 --chmod=774 src/ezTime/server/ .
+COPY --chown=1000:1000 --chmod=774 src/update.sh .
+COPY --chown=1000:1000 --chmod=444 src/crontab .
+
+RUN php82 update
+RUN php82 server &
+
+HEALTHCHECK --interval=5m --timeout=3s CMD pidof php82
 
 EXPOSE 2342/udp
-
-COPY <<-EOT restart.sh
-	#!/bin/sh
-	/home/timezoned/update
-EOT
-
-RUN <<EOT
-	chmod +x restart.sh
-	touch crontab.tmp
-	echo '0 0 * * 0 /home/timezoned/restart.sh > crontab.tmp'
-	crontab crontab.tmp
-	rm crontab.tmp
-EOT
-
-CMD ["/usr/sbin/crond", "-f", "-d", "0"]
