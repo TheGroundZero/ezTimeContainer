@@ -18,4 +18,4 @@ RUN php82 server &
 
 EXPOSE 2342/udp
 
-ENTRYPOINT ["sh", "-c","/home/timezoned/run.sh"]
+ENTRYPOINT ["/home/timezoned/run.sh"]
