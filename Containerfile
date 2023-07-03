@@ -11,7 +11,7 @@ RUN adduser -D -s /bin/sh -u 1000 timezoned
 USER timezoned
 WORKDIR /home/timezoned
 
-COPY --chown=1000:1000 --chmod=774 src/update src/server src/run .
+COPY --chown=1000:1000 --chmod=774 src/update src/server src/run.sh .
 
 RUN php82 update
 RUN php82 server &

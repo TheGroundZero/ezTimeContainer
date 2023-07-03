@@ -1,7 +1,6 @@
 services:
   eztime:
     build: .
-    command: supercronic crontab
     container_name: eztime-server
     deploy:
       restart_policy:
