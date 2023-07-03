@@ -14,6 +14,4 @@ This is a brutally ugly hack that serves timezone information via UDP port 2342.
 
 * Test by running `nc -u <ip or domain name> 2342` on some other system and then typing a zone (like "Europe/London") followed by Ctrl-D. You should get the POSIX information for that zone.
 
-* If that works, you may (on a FreeBSD machine) use the 'timezoned' script by placing it in /usr/local/etc/rc.d to start the server automatically. On other systems, you'll have to figure out how to start it automatically when the server reboots.
-
 * Run update script and then restart the server periodically to stay up on timezone updates.
