@@ -4,8 +4,8 @@ while true
 do
     killall php82
 
-    php82 ~timezoned/update
-    php82 ~timezoned/server &
+    /bin/sh ~timezoned/update
+    /usr/local/bin/php ~timezoned/server &
 
     sleep 86400;
 done
